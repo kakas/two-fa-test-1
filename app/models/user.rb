@@ -6,4 +6,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :registerable,
          :recoverable, :rememberable, :validatable
+
+  # URI for OTP two-factor QR code
+  def two_factor_qr_code_uri
+    issuer = 'two-fa-test-1 App'
+    label = "#{issuer}:#{email}"
+    otp_provisioning_uri(label, issuer: issuer)
+  end
 end

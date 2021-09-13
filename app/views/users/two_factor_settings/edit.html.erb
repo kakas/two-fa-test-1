@@ -1,0 +1,15 @@
+<h1>Step1: Use Google Authenticator to scan QR code</h1>
+<%= qr_code_as_svg(current_user.two_factor_qr_code_uri)%>
+
+<h1>Step2: Enter code that present on Google Authenticator</h1>
+<%= form_for :two_factor_settings, url: users_two_factor_settings_path, method: :patch do |f| %>
+  <div>
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <%= f.submit 'Enable 2FA', class: 'btn btn-primary' %>
+<% end %>

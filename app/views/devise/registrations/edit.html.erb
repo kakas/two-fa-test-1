@@ -40,7 +40,7 @@
 <% if current_user.otp_required_for_login %>
   TODO: Disable 2FA
 <% else %>
-  TODO: redirect to 2FA setting page
+  <p><%= link_to('Enable 2FA', edit_users_two_factor_settings_path, class: 'btn btn-primary') %></p>
 <% end %>
 
 <h3>Cancel my account</h3>
