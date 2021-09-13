@@ -38,7 +38,7 @@
 
 <h3>2FA Setting</h3>
 <% if current_user.otp_required_for_login %>
-  TODO: Disable 2FA
+  <p><%= link_to('Disable 2FA', users_two_factor_settings_path, method: :delete, class: 'btn btn-danger') %></p>
 <% else %>
   <p><%= link_to('Enable 2FA', edit_users_two_factor_settings_path, class: 'btn btn-primary') %></p>
 <% end %>

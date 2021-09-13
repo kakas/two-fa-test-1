@@ -21,6 +21,17 @@ class Users::TwoFactorSettingsController < ApplicationController
     end
   end
 
+  def destroy
+    current_user.update!(
+      otp_required_for_login: false,
+      encrypted_otp_secret: nil,
+      encrypted_otp_secret_iv: nil,
+      encrypted_otp_secret_salt: nil,
+    )
+    flash[:notice] = '2FA has been disabled'
+    redirect_to edit_user_registration_path
+  end
+
   private
 
   def generate_two_factor_secret_if_missing!
