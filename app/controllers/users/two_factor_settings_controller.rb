@@ -6,17 +6,12 @@ class Users::TwoFactorSettingsController < ApplicationController
   end
 
   def update
-    if current_user.valid_password?(two_factor_settings_params[:password])
-      if current_user.validate_and_consume_otp!(two_factor_settings_params[:code])
-        current_user.update(otp_required_for_login: true)
-        flash[:notice] = 'Enabled two factor success'
-        redirect_to edit_user_registration_path
-      else
-        flash.now[:alert] = 'Incorrect code'
-        render :edit
-      end
+    if current_user.validate_and_consume_otp!(two_factor_settings_params[:code])
+      current_user.update(otp_required_for_login: true)
+      flash[:notice] = 'Enabled two factor success'
+      redirect_to edit_user_registration_path
     else
-      flash.now[:alert] = 'Incorrect password'
+      flash.now[:alert] = 'Incorrect code'
       render :edit
     end
   end
